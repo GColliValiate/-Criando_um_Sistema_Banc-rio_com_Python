@@ -1,0 +1,62 @@
+menu = """
+ DIGITE A LETRA DA OPÇÃO DESEJADA
+        [d] Depositar
+        [s] Sacar
+        [e] Extrato
+        [q] Sair
+
+=> """
+
+saldo = float(0.00)
+valor_de_deposito = float(0.00)
+extrato = "Segue lista de depósitos e saques:"
+numero_saques = 0
+LIMITE_VALOR_SAQUE = 500
+LIMITE_SAQUES = 3
+
+
+while True:
+
+    opcao = input(menu)
+
+    if opcao == "d":
+        valor_de_deposito = float(input("Digite o valor a ser depositado "))
+        if valor_de_deposito > 0:
+            saldo += valor_de_deposito
+            extrato += "\nDepósito realizado no valor de:---R$"         
+            extrato += str(valor_de_deposito)
+            extrato += "0"
+            print("\nDepósito realizado com sucesso! ")
+
+        else:
+            print("\nValor inválido! O valor tem que ser positivo ")
+
+    elif opcao == "s":
+        if numero_saques < LIMITE_SAQUES:
+            print(f"\nSeu limite de saques hoje é: {LIMITE_SAQUES - numero_saques} ")
+            saque = float(input("Informe o valor que deseja sacar "))
+            if saque > 0 and saque <= LIMITE_VALOR_SAQUE:
+                if saque <= saldo:
+                    saldo -= saque
+                    numero_saques += 1
+                    extrato += "\nSaque realizado no valor de:------R$"         
+                    extrato += str(saque)
+                    extrato += "0"
+                    print("\nSaque realizado com sucesso! ")
+                else:
+                    print(f"\nSaldo insuficiente para o valor informado! Favor selecionar saque até: {saldo: .2f} ")
+            else:
+                print(f"\nValor inválido!\nO valor tem que ser positivo e respeitar o limite diário de saque, que é : R${LIMITE_VALOR_SAQUE: .2f} ")
+                continue
+        else:
+            print("\nVocê atingiu o número máximo de saques diário. Tente novamente amanhã ")
+    elif opcao == "e":
+        print(extrato)
+        print(f"\nSALDO ATUAL ------> R${saldo: .2f}")        
+    
+    
+    elif opcao == "q":
+        print("\nOBRIDAGO POR SER NOSSO CLIENTE!! VOLTE SEMPRE!\n")
+        break
+    else:
+        print("OPÇÃO INVÁLIDA!")
